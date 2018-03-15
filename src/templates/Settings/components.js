@@ -1,8 +1,4 @@
 import styled from 'styled-components';
-// import { shade } from 'polished';
-// import { Link } from 'react-router-dom';
-
-// import Colors from '../../config/colors';
 
 const Wrapper = styled.div`
 display: flex;
@@ -11,7 +7,7 @@ align-items: center;
 height: 100%;
 background: url('${props => props.background}');
 background-size: cover;
-`;
+`
 
 const Container = styled.aside`
 display: flex;
@@ -20,7 +16,7 @@ width: 900px;
 height: 100%;
 background: #EEE;
 box-shadow: 0 0 25px #000;
-`;
+`
 
 const Header = styled.section`
 h1 {
@@ -29,10 +25,10 @@ h1 {
   text-align: center;
   color: #5F0000;
 }
-`;
+`
 
 export default {
   Wrapper,
   Container,
   Header
-};
+}

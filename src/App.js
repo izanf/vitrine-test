@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react';
-import { Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
+import React, { Fragment } from 'react'
+import { Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { ConnectedRouter } from 'react-router-redux'
 
-import 'normalize.css';
-import './global-styles.js';
-import { store, history } from './store';
-import Magazines from './modules/Magazines';
+import 'normalize.css'
+import './global-styles.js'
+import { store, history } from './store'
+import Magazines from './modules/Magazines'
 
 const App = () => (
   <Provider store={store}>
@@ -18,6 +18,6 @@ const App = () => (
       </Fragment>
     </ConnectedRouter>
   </Provider>
-);
+)
 
-export default App;
+export default App

@@ -35,7 +35,7 @@ const reducer = (state = initialState, action) => {
     default:
       return state
   }
-};
+}
 
 export default reducer
 
@@ -47,4 +47,4 @@ export const fetchMagazines = (data) => async (dispatch) => {
   } catch (err) {
     dispatch({ type: Types.FETCH_FAILURE, payload: err.response.data })
   }
-};
+}

@@ -3,11 +3,12 @@ import { any, string } from 'prop-types';
 
 import Components from './components';
 
+import background from './../../assets/imgs/background.jpg';
 // import Colors from '../../config/colors';
 
 const Settings = ({ children, title }) => {
   return (
-    <Components.Wrapper>
+    <Components.Wrapper background={background}>
       <Components.Container>
         <Components.Header>
           <h1>{title}</h1>

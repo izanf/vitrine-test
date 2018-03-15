@@ -12,5 +12,16 @@ const AUTH_PARAMS = `&apikey=${API_KEY}&ts=${TIMESTAMP}&hash=${API_HASH}`;
 const MAGAZINES_ENDPOINT = '/comics';
 
 export default {
-  magazines: () => API.get(`${MAGAZINES_ENDPOINT}?format=magazine&orderBy=title&offset=10${AUTH_PARAMS}`)
+  magazines: (data) => {
+    const { title, year, page } = data ? data : { title: '', year: '', page: 0 }
+    let params = ''
+
+    title ? params += `&titleStartsWith=${title}` : ''
+    year ? params += `&startYear=${year}` : ''
+    page ? params += `&offset=${10*page}` : 0
+
+    console.log(params)
+
+    return API.get(`${MAGAZINES_ENDPOINT}?format=comic&orderBy=title&limit=10${params}${AUTH_PARAMS}`)
+  }
 };

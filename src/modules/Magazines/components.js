@@ -5,24 +5,24 @@ flex: 1;
 display: flex;
 flex-direction: column;
 padding: 1rem;
-`
+`;
 
 const Search = styled.section`
 display: flex;
 align-items: center;
 justify-content: flex-end;
 width: 100%;
-`
+`;
 
 const InputGroup = styled.div`
 display: flex;
 flex-direction: column;
 margin: 0 .5rem;
-`
+`;
 
 const InputLabel = styled.label`
 font-family: Oswald;
-`
+`;
 
 const InputTitle = styled.input`
 font-family: Oswald;
@@ -34,10 +34,10 @@ border-radius: 3px;
 &:focus {
   outline: none;
 }
-`
+`;
 
 const SelectYear = styled.select`
-`
+`;
 
 const BtnSearch = styled.button`
 display: flex;
@@ -51,7 +51,7 @@ cursor: pointer;
 svg path {
   fill: #FFF;
 }
-`
+`;
 
 const Content = styled.section`
 flex: 1;
@@ -70,7 +70,7 @@ padding: 1rem 0;
     }
   }
 }
-`
+`;
 
 export default {
   Wrapper,
@@ -81,4 +81,4 @@ export default {
   SelectYear,
   BtnSearch,
   Content
-}
+};

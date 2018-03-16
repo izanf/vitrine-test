@@ -1,15 +1,15 @@
-import React, { Component, Fragment } from 'react'
-import { arrayOf, func } from 'prop-types'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import Collapsible from 'react-collapsible'
-import Pagination from 'react-paginate'
-import IconSearch from 'react-icons/lib/fa/search'
+import React, { Component } from 'react';
+import { arrayOf, bool, func } from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Collapsible from 'react-collapsible';
+import Pagination from 'react-paginate';
+import IconSearch from 'react-icons/lib/fa/search';
 
-import Components from './components'
-import { fetchMagazines } from '../../store/magazines'
+import Components from './components';
+import { fetchMagazines } from '../../store/magazines';
 
-import Loading from './../../components/Loading'
+import Loading from './../../components/Loading';
 
 class Magazines extends Component {
   constructor() {
@@ -18,11 +18,12 @@ class Magazines extends Component {
       title: '',
       year: '',
       currentPage: 0
-    }
+    };
   }
 
   static propTypes = {
     data: arrayOf({}),
+    loading: bool,
     fetchMagazines: func
   }
 
@@ -31,45 +32,44 @@ class Magazines extends Component {
   }
 
   handleState = (field, value) => {
-    this.setState({ [field]: value })
+    this.setState({ [field]: value });
   }
 
   changePage = (value) => {
-    this.handleState('currentPage', value)
-    this.onSubmit()
+    this.handleState('currentPage', value);
+    this.onSubmit();
   }
 
   onSubmit = () => {
-    const { title, year, currentPage } = this.state
+    const { title, year, currentPage } = this.state;
     const data = {
-      title: title,
-      year: year,
+      title,
+      year,
       page: currentPage
-    }
+    };
 
-    this.props.fetchMagazines(data)
+    this.props.fetchMagazines(data);
   }
 
   renderMagazines = () => {
-    const { loading, data } = this.props
+    const { loading, data } = this.props;
 
-    if (loading) return <Loading />
+    if (loading) return <Loading />;
 
-    return data ? data.results.map(item => {
-      const { title } = item
+    return data ? data.results.map((item) => {
+      const { title } = item;
 
       return (
         <Collapsible trigger={title}>
           content
         </Collapsible>
-      )
-    }) : ''
+      );
+    }) : '';
   }
 
   render() {
-    const { title, year, currentPage } = this.state
-    const { loading, data } = this.props
-    console.log(currentPage)
+    const { title, year, currentPage } = this.state;
+    const { loading, data } = this.props;
 
     return (
       <Components.Wrapper>
@@ -105,7 +105,7 @@ class Magazines extends Component {
           {this.renderMagazines()}
         </Components.Content>
         <Pagination
-          pageCount={Math.ceil(data.total/10)}
+          pageCount={Math.ceil(data.total / 10)}
           pageRangeDisplayed={5}
           marginPagesDisplayed={3}
           onPageChange={e => this.changePage(e.selected)}
@@ -115,7 +115,7 @@ class Magazines extends Component {
           forcePage={currentPage}
         />
       </Components.Wrapper>
-    )
+    );
   }
 }
 
@@ -126,4 +126,4 @@ export default connect(
     error: store.magazines.error
   }),
   dispatch => bindActionCreators({ fetchMagazines }, dispatch)
-)(Magazines)
+)(Magazines);

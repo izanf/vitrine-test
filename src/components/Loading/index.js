@@ -1,17 +1,17 @@
-import React from 'react'
-import styled, { keyframes } from 'styled-components'
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 
 const Wrapper = styled.div`
 margin: 150px auto;
 width: 40px;
 height: 40px;
 position: relative;
-`
+`;
 
 const circleFadeDelay = keyframes`
   0%, 39%, 100% { opacity: 0; }
   40% { opacity: 1; } 
-`
+`;
 
 const Circle = styled.div`
 width: 100%;
@@ -31,10 +31,10 @@ top: 0;
   -webkit-animation: ${circleFadeDelay} 1.2s ease-in-out infinite both;
           animation: ${circleFadeDelay} 1.2s ease-in-out infinite both;
 }
-`
+`;
 
 const CircleOne = Circle.extend`
-`
+`;
 
 const CircleTwo = Circle.extend`
 -webkit-transform: rotate(30deg);
@@ -45,7 +45,7 @@ const CircleTwo = Circle.extend`
   -webkit-animation-delay: -1.1s;
           animation-delay: -1.1s; 
 }
-`
+`;
 
 const CircleThree = Circle.extend`
 -webkit-transform: rotate(60deg);
@@ -56,7 +56,7 @@ const CircleThree = Circle.extend`
   -webkit-animation-delay: -1s;
           animation-delay: -1s; 
 }
-`
+`;
 
 const CircleFour = Circle.extend`
 -webkit-transform: rotate(90deg);
@@ -67,7 +67,7 @@ const CircleFour = Circle.extend`
   -webkit-animation-delay: -.9s;
           animation-delay: -.9s; 
 }
-`
+`;
 
 const CircleFive = Circle.extend`
 -webkit-transform: rotate(120deg);
@@ -78,7 +78,7 @@ const CircleFive = Circle.extend`
   -webkit-animation-delay: -.8s;
           animation-delay: -.8s; 
 }
-`
+`;
 
 const CircleSix = Circle.extend`
 -webkit-transform: rotate(150deg);
@@ -89,7 +89,7 @@ const CircleSix = Circle.extend`
   -webkit-animation-delay: -.7s;
           animation-delay: -.7s; 
 }
-`
+`;
 
 const CircleSeven = Circle.extend`
 -webkit-transform: rotate(180deg);
@@ -100,7 +100,7 @@ const CircleSeven = Circle.extend`
   -webkit-animation-delay: -.6s;
           animation-delay: -.6s; 
 }
-`
+`;
 
 const CircleEight = Circle.extend`
 -webkit-transform: rotate(210deg);
@@ -111,7 +111,7 @@ const CircleEight = Circle.extend`
   -webkit-animation-delay: -.5s;
           animation-delay: -.5s; 
 }
-`
+`;
 
 const CircleNine = Circle.extend`
 -webkit-transform: rotate(240deg);
@@ -122,7 +122,7 @@ const CircleNine = Circle.extend`
   -webkit-animation-delay: -.4s;
           animation-delay: -.4s; 
 }
-`
+`;
 
 const CircleTen = Circle.extend`
 -webkit-transform: rotate(270deg);
@@ -133,7 +133,7 @@ const CircleTen = Circle.extend`
   -webkit-animation-delay: -.3s;
           animation-delay: -.3s; 
 }
-`
+`;
 
 const CircleEleven = Circle.extend`
 -webkit-transform: rotate(300deg);
@@ -144,7 +144,7 @@ const CircleEleven = Circle.extend`
   -webkit-animation-delay: -.2s;
           animation-delay: -.2s; 
 }
-`
+`;
 
 const CircleTwelve = Circle.extend`
 -webkit-transform: rotate(330deg);
@@ -155,7 +155,7 @@ const CircleTwelve = Circle.extend`
   -webkit-animation-delay: -.1s;
           animation-delay: -.1s; 
 }
-`
+`;
 
 const Loading = () => (
   <Wrapper>
@@ -172,6 +172,6 @@ const Loading = () => (
     <CircleEleven />
     <CircleTwelve />
   </Wrapper>
-)
+);
 
-export default Loading
+export default Loading;

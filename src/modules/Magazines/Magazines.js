@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { arrayOf, bool, func } from 'prop-types';
+import { shape, arrayOf, bool, func, number, string } from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Collapsible from 'react-collapsible';
@@ -7,9 +7,11 @@ import Pagination from 'react-paginate';
 import IconSearch from 'react-icons/lib/fa/search';
 
 import Components from './components';
-import { fetchMagazines } from '../../store/magazines';
+import { fetchMagazines, handleSelected } from '../../store/magazines';
 
 import Loading from './../../components/Loading';
+import Input from './../../components/Input';
+import Button from './../../components/Button';
 
 class Magazines extends Component {
   constructor() {
@@ -22,9 +24,16 @@ class Magazines extends Component {
   }
 
   static propTypes = {
-    data: arrayOf({}),
-    loading: bool,
-    fetchMagazines: func
+    data: shape({
+      total: number.isRequired,
+      results: arrayOf(shape({
+        title: string.isRequired
+      }))
+    }).isRequired,
+    loading: bool.isRequired,
+    selected: shape({}),
+    fetchMagazines: func.isRequired,
+    handleSelected: func.isRequired
   }
 
   componentDidMount() {
@@ -33,6 +42,16 @@ class Magazines extends Component {
 
   handleState = (field, value) => {
     this.setState({ [field]: value });
+  }
+
+  handleCollapse = (item) => {
+    const { selected, handleSelected } = this.props;
+
+    if (item.id !== selected.id) {
+      handleSelected(item);
+    } else {
+      handleSelected('');
+    }
   }
 
   changePage = (value) => {
@@ -52,16 +71,33 @@ class Magazines extends Component {
   }
 
   renderMagazines = () => {
-    const { loading, data } = this.props;
+    const { loading, data, selected } = this.props;
 
     if (loading) return <Loading />;
 
     return data ? data.results.map((item) => {
-      const { title } = item;
+      const { title, thumbnail, description } = item;
+      const open = selected.id === item.id;
+      const cover = `${thumbnail.path}.${thumbnail.extension}`;
 
       return (
-        <Collapsible trigger={title}>
-          content
+        <Collapsible
+          trigger={title}
+          key={item.id}
+          open={open}
+          handleTriggerClick={() => this.handleCollapse(item)}
+        >
+          <Components.Cover>
+            <img src={cover} alt={title} />
+          </Components.Cover>
+          <Components.Description>
+            <h3>Descrição</h3>
+            <h4>{description}</h4>
+            <Button
+              text="Ver mais"
+              onPress={() => window.open('https://www.google.com')}
+            />
+          </Components.Description>
         </Collapsible>
       );
     }) : '';
@@ -74,32 +110,27 @@ class Magazines extends Component {
     return (
       <Components.Wrapper>
         <Components.Search>
-          <Components.InputGroup>
-            <Components.InputLabel htmlFor="title">Título</Components.InputLabel>
-            <Components.InputTitle
-              placeholder="ex: Spider-Man"
-              id="title"
-              onChange={e => this.handleState('title', e.target.value)}
-              value={title}
-              disabled={loading}
-            />
-          </Components.InputGroup>
-          <Components.InputGroup>
-            <Components.InputLabel htmlFor="year">Ano de inicio</Components.InputLabel>
-            <Components.InputTitle
-              placeholder="ex: 2007"
-              id="year"
-              onChange={e => this.handleState('year', e.target.value)}
-              value={year}
-              disabled={loading}
-            />
-          </Components.InputGroup>
-          <Components.BtnSearch
-            onClick={() => this.onSubmit()}
+          <Input
+            label="Título"
+            id="title"
+            placeholder="ex: Spider-Man"
+            onChange={value => this.handleState('title', value)}
+            value={title}
             disabled={loading}
-          >
-            <IconSearch />
-          </Components.BtnSearch>
+          />
+          <Input
+            label="Ano de inicio"
+            id="year"
+            placeholder="ex: 2007"
+            onChange={value => this.handleState('year', value)}
+            value={year}
+            disabled={loading}
+          />
+          <Button
+            icon={<IconSearch />}
+            disabled={loading}
+            onPress={() => this.onSubmit()}
+          />
         </Components.Search>
         <Components.Content>
           {this.renderMagazines()}
@@ -123,7 +154,8 @@ export default connect(
   store => ({
     loading: store.magazines.loading,
     data: store.magazines.data ? store.magazines.data.data : '',
-    error: store.magazines.error
+    error: store.magazines.error,
+    selected: store.magazines.selected
   }),
-  dispatch => bindActionCreators({ fetchMagazines }, dispatch)
+  dispatch => bindActionCreators({ fetchMagazines, handleSelected }, dispatch)
 )(Magazines);

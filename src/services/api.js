@@ -7,9 +7,10 @@ const API = axios.create({
 });
 
 const API_HASH = md5(TIMESTAMP + PRIV_KEY + API_KEY);
-const AUTH_PARAMS = `&apikey=${API_KEY}&ts=${TIMESTAMP}&hash=${API_HASH}`;
+const AUTH_PARAMS = `apikey=${API_KEY}&ts=${TIMESTAMP}&hash=${API_HASH}`;
 
 const MAGAZINES_ENDPOINT = '/comics';
+const CHARACTERS_ENDPOINT = '/characters';
 
 export default {
   magazines: (data) => {
@@ -20,6 +21,7 @@ export default {
     if (year) params += `&startYear=${year}`;
     if (page) params += `&offset=${10 * page}`;
 
-    return API.get(`${MAGAZINES_ENDPOINT}?format=comic&orderBy=title&limit=10${params}${AUTH_PARAMS}`);
-  }
+    return API.get(`${MAGAZINES_ENDPOINT}?format=comic&orderBy=title&limit=10${params}&${AUTH_PARAMS}`);
+  },
+  characters: character => API.get(`${CHARACTERS_ENDPOINT}/${character}?${AUTH_PARAMS}`)
 };

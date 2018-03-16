@@ -1,7 +1,11 @@
 /* eslint-disable no-unused-expressions */
 import { injectGlobal } from 'styled-components';
+import colors from './config/colors';
 
 injectGlobal`
+@import url('https://fonts.googleapis.com/css?family=Oswald:200,400,700');
+@import url('https://fonts.googleapis.com/css?family=Lora:400,700');
+
 html,
 body,
 #root {
@@ -25,7 +29,7 @@ body,
 
 .pagination li a {
   display: block;
-  color: #5F0000 !important;
+  color: ${colors.primary} !important;
   padding: .5rem 1rem;
 }
 
@@ -41,12 +45,10 @@ body,
 .pagination li a:hover {
   text-decoration: none !important;
   color: #FFF !important;
-  background: #5F0000;
+  background: ${colors.primary};
 }
 
 .pagination li a:focus {
   outline: none;
 }
-
-@import url('https://fonts.googleapis.com/css?family=Oswald:200,400,700');
 `;

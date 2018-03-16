@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import colors from './../../config/colors';
 
 const Wrapper = styled.div`
 display: flex;
@@ -23,7 +24,7 @@ h1 {
   font-family: Oswald;
   font-weight: 700;
   text-align: center;
-  color: #5F0000;
+  color: ${colors.primary};
 }
 `;
 

@@ -4,6 +4,7 @@ export const Types = {
   FETCH: 'magazines/FETCH',
   FETCH_SUCCESS: 'magazines/FETCH_SUCCESS',
   FETCH_FAILURE: 'magazines/FETCH_FAILURE',
+  SET_SELECTED: 'magazines/SET_SELECTED'
 };
 
 const initialState = {
@@ -24,13 +25,18 @@ const reducer = (state = initialState, action) => {
     case Types.FETCH_SUCCESS:
       return Object.assign({}, state, {
         loading: false,
-        data: action.payload
+        data: action.payload,
+        selected: {}
       });
     case Types.FETCH_FAILURE:
       return Object.assign({}, state, {
         loading: false,
         data: null,
         error: action.payload.message
+      });
+    case Types.SET_SELECTED:
+      return Object.assign({}, state, {
+        selected: action.payload
       });
     default:
       return state;
@@ -48,3 +54,5 @@ export const fetchMagazines = data => async (dispatch) => {
     dispatch({ type: Types.FETCH_FAILURE, payload: err.response.data });
   }
 };
+
+export const handleSelected = selected => dispatch => dispatch({ type: Types.SET_SELECTED, payload: selected });

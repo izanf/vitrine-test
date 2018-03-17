@@ -17,6 +17,14 @@ width: 900px;
 height: 100%;
 background: #EEE;
 box-shadow: 0 0 25px #000;
+
+@media (max-width: 960px) {
+  width: 680px;
+}
+
+@media (max-width: 576px) {
+  width: 100%;
+}
 `;
 
 const Header = styled.section`

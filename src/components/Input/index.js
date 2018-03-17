@@ -40,12 +40,16 @@ const Input = ({
 );
 
 Input.propTypes = {
-  id: string.isRequired,
-  placeholder: string.isRequired,
-  label: string.isRequired,
-  onChange: func.isRequired,
-  value: string.isRequired,
-  disabled: bool.isRequired
+  id: string,
+  placeholder: string,
+  label: string,
+  onChange: func,
+  value: string,
+  disabled: bool
+};
+
+Input.defaultProps = {
+  disabled: false
 };
 
 export default Input;

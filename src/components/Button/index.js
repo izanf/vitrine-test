@@ -37,7 +37,7 @@ Button.propTypes = {
   icon: shape({}),
   text: string,
   disabled: bool,
-  onPress: func.isRequired
+  onPress: func
 };
 
 Button.defaultProps = {

@@ -51,4 +51,11 @@ body,
 .pagination li a:focus {
   outline: none;
 }
+
+@media (max-width: 576px) {
+#root {
+  height: auto;
+  min-height: 100%;
+}
+}
 `;

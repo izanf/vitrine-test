@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Collapsible from 'react-collapsible';
 import Pagination from 'react-paginate';
+import moment from 'moment';
 import IconSearch from 'react-icons/lib/fa/search';
 
 import Components from './components';
@@ -19,6 +20,7 @@ class Magazines extends Component {
     this.state = {
       title: '',
       year: '',
+      character: '',
       currentPage: 0
     };
   }
@@ -70,8 +72,40 @@ class Magazines extends Component {
     this.props.fetchMagazines(data);
   }
 
+  renderDates = (dates) => {
+    return (
+      <Components.Dates>
+        {dates.map((el, index) => {
+          switch (el['type']) {
+            case 'onsaleDate':
+              return <h3 key={index}>Publicado: <span>{moment(el['date']).format('DD/MM/YYYY')}</span></h3>;
+            case 'unlimitedDate':
+              return <h3 key={index}>Add ao Marvel Ilimitado: <span>{moment(el['date']).format('DD/MM/YYYY')}</span></h3>;
+            default:
+              return '';
+          }
+        })}
+      </Components.Dates>
+    );
+  }
+
+  renderCharacters = (characters) => {
+    const { character } = this.state;
+
+    return characters.items.map((item, index) => {
+      return item.name.match(character) ? <li key={index}>{item.name}</li> : '';
+    });
+  }
+
+  renderURL = (urls) => {
+    return urls.map((item) => {
+      return item['type'] === 'detail' ? item.url : '';
+    });
+  }
+
   renderMagazines = () => {
     const { loading, data, selected } = this.props;
+    const { character } = this.state;
 
     if (loading) return <Loading />;
 
@@ -85,19 +119,38 @@ class Magazines extends Component {
           trigger={title}
           key={item.id}
           open={open}
+          classParentString="magazine"
           handleTriggerClick={() => this.handleCollapse(item)}
         >
           <Components.Cover>
             <img src={cover} alt={title} />
           </Components.Cover>
           <Components.Description>
+            {this.renderDates(item.dates)}
             <h3>Descrição</h3>
             <h4>{description}</h4>
             <Button
               text="Ver mais"
-              onPress={() => window.open('https://www.google.com')}
+              onPress={() => window.open(this.renderURL(item.urls))}
             />
           </Components.Description>
+          {item.characters.items.length ? (
+            <Collapsible
+              trigger="Personagens"
+              classParentString="characters"
+            >
+              <Input
+                label="Buscar personagem"
+                id="character"
+                placeholder="ex: Magneto"
+                onChange={value => this.handleState('character', value)}
+                value={character}
+              />
+              <ul>
+                {this.renderCharacters(item.characters)}
+              </ul>
+            </Collapsible>
+          ) : ''}
         </Collapsible>
       );
     }) : '';
@@ -106,6 +159,7 @@ class Magazines extends Component {
   render() {
     const { title, year, currentPage } = this.state;
     const { loading, data } = this.props;
+    const isMobile = window.innerWidth < 576;
 
     return (
       <Components.Wrapper>
@@ -137,8 +191,8 @@ class Magazines extends Component {
         </Components.Content>
         <Pagination
           pageCount={Math.ceil(data.total / 10)}
-          pageRangeDisplayed={5}
-          marginPagesDisplayed={3}
+          pageRangeDisplayed={isMobile ? 1 : 3}
+          marginPagesDisplayed={isMobile ? 1 : 2}
           onPageChange={e => this.changePage(e.selected)}
           containerClassName="pagination"
           previousLabel="Anterior"

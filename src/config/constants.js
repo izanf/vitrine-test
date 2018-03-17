@@ -1,5 +1,5 @@
 // export const ENV = process.env.REACT_APP_ENV;
-export const ENV = 'development';
+export const ENV = 'production';
 
 export const API_URL = 'https://gateway.marvel.com:443/v1/public';
 export const API_KEY = '486d3b97ea7a6ed33129b6c53da5e137';
